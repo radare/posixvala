@@ -1,6 +1,6 @@
 
 errordomain MyError {
-    HAS_FAILED
+	HAS_FAILED
 }
 
 [Compact]

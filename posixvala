@@ -37,7 +37,7 @@ for a in $@ ; do
 		;;
 	esac
 done
-if [ "${MAIN}" = a.out ]; then
+if [ -n "${CFILES}" -a "${MAIN}" = a.out ]; then
 	echo "warning: unable to find main, output is a.out"
 fi
 ${VALAC} -C ${VALA_ARGS}

@@ -26,4 +26,12 @@ install:
 	mkdir -p ${DP}/include/posixvala
 	cp -rf include/* ${DP}/include/posixvala
 
-#symstall:
+uninstall deinstall:
+	rm -rf ${DP}/bin/posixvala
+	rm -rf ${DP}/include/posixvala
+
+symstall:
+	mkdir -p ${DP}/bin ${DP}/include
+	ln -fs `pwd`/posixvala ${DP}/bin/posixvala
+	rm -rf ${DP}/include/posixvala
+	ln -fs `pwd`/include ${DP}/include/posixvala
