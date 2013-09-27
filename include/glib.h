@@ -3,10 +3,6 @@
 #ifndef _GLIB_H_
 #define _GLIB_H_
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
 #ifdef __cplusplus
  #define G_BEGIN_DECLS	extern "C" {
  #define G_END_DECLS	}
@@ -14,6 +10,12 @@
  #define G_BEGIN_DECLS
  #define G_END_DECLS
 #endif /* __cplusplus */
+
+G_BEGIN_DECLS
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 #define GTypeInterface void*
 #define GQuark unsigned int
@@ -59,5 +61,7 @@ typedef void (*GFunc)(gpointer data, gpointer user_data);
 #include "glib-string.h"
 #include "glib-list.h"
 #include "glib-error.h"
+
+G_END_DECLS
 
 #endif /* _GLIB_H_ */
