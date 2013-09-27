@@ -46,13 +46,14 @@ typedef struct {
 	const char *m;
 } GEnumValue;
 
+#define g_once_init_enter(x) ((*(x) == 0) ? TRUE : FALSE)
+#define g_once_init_leave(x,y) (*(x) = y)
+#define g_boxed_type_register_static(x, y, z) 0
+
 static inline void g_type_init() {}
 static inline void g_boxed() {}
-#define g_once_init_enter(x) 0
-static inline GType g_boxed_type_register_static() {return 0;}
-static inline void g_once_init_leave() {}
-typedef void (*GBoxedCopyFunc)(void *s);
-typedef void (*GBoxedFreeFunc)(void *s);
+typedef gpointer (*GBoxedCopyFunc)(gpointer s);
+typedef void (*GBoxedFreeFunc)(gpointer s);
 typedef void (*GFunc)(gpointer data, gpointer user_data);
 
 #include "glib-string.h"
