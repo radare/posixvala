@@ -1,8 +1,19 @@
 /* LGPL3 - posixvala glib replacement - 2013 - pancake@nopcode.org */
 
+#ifndef _GLIB_H_
+#define _GLIB_H_
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
+#ifdef __cplusplus
+ #define G_BEGIN_DECLS	extern "C" {
+ #define G_END_DECLS	}
+#else
+ #define G_BEGIN_DECLS
+ #define G_END_DECLS
+#endif /* __cplusplus */
 
 #define GTypeInterface void*
 #define g_quark_from_static_string(x) 1
@@ -13,8 +24,8 @@
 #define gint int
 #define gdouble double
 #define gsize size_t
-#define g_new0(x,y) (x*)calloc (sizeof(x),y);
-#define g_slice_new0(x) (x*)calloc (sizeof(x),1);
+#define g_new0(x,y) (x*)calloc (y, sizeof(x));
+#define g_slice_new0(x) (x*)calloc (1, sizeof(x));
 #define g_return_if_fail(x) if(!(x)) return;
 #define g_return_val_if_fail(x,y) if (!(x)) return y;
 #define g_slice_free(x,y) free(y)
@@ -47,3 +58,5 @@ typedef void (*GFunc)(gpointer data, gpointer user_data);
 #include "glib-string.h"
 #include "glib-list.h"
 #include "glib-error.h"
+
+#endif /* _GLIB_H_ */

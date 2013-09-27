@@ -1,5 +1,8 @@
 /* TODO */
 
+#ifndef _GLIB_LIST_H_
+#define _GLIB_LIST_H_
+
 typedef struct _GList GList;
 struct _GList {
 	gpointer data;
@@ -7,9 +10,17 @@ struct _GList {
 	GList *prev;
 };
 
-// XXX memory leak
-#define g_list_free free
-#define _g_list_alloc() calloc(sizeof(GList), 1)
+#define _g_list_alloc() calloc(1, sizeof(GList))
+
+static inline void g_list_free(GList *list) {
+	GList *current, *tmp;
+	current = list;
+	while (current) {
+		tmp = current->next;
+		free(current);
+		current = tmp;
+	}
+}
 
 static inline GList* g_list_last (GList *list) {
 	if (list)
@@ -61,3 +72,5 @@ static inline void g_list_foreach (GList *list, GFunc func, gpointer user_data) 
 #define g_slist_prepend g_list_prepend
 #define g_slist_foreach g_list_foreach
 #define g_slist_free g_list_free
+
+#endif /* _GLIB_LIST_H_ */

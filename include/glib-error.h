@@ -1,5 +1,8 @@
 /* LGPL3 - posixvala glib replacement - 2013 - pancake@nopcode.org */
 
+#ifndef _GLIB_ERROR_H_
+#define _GLIB_ERROR_H_
+
 static inline const char *g_quark_to_string(GQuark q) { return "Error"; }
 #define g_error_new(x,y,z) (GError*)strdup (z)
 #define g_error_free(x) free(x->message),free(x)
@@ -18,3 +21,5 @@ static inline GError *g_error_new_literal(int x, int y, const char *msg) {
 	err->message = strdup (msg);
 	return err;
 }
+
+#endif /* _GLIB_ERROR_ */
