@@ -1,8 +1,19 @@
 /* LGPL3 - posixvala glib replacement - 2013 - pancake@nopcode.org */
 
+#ifndef _GLIB_H_
+#define _GLIB_H_
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
+#ifdef __cplusplus
+ #define G_BEGIN_DECLS	extern "C" {
+ #define G_END_DECLS	}
+#else
+ #define G_BEGIN_DECLS
+ #define G_END_DECLS
+#endif /* __cplusplus */
 
 #define GTypeInterface void*
 #define g_quark_from_static_string(x) 1
@@ -47,3 +58,5 @@ typedef void (*GFunc)(gpointer data, gpointer user_data);
 #include "glib-string.h"
 #include "glib-list.h"
 #include "glib-error.h"
+
+#endif /* _GLIB_H_ */

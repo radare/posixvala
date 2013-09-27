@@ -1,3 +1,6 @@
+#ifndef _GLIB_STRING_H_
+#define _GLIB_STRING_H_
+
 #include <stdarg.h>
 
 #define HAVE_ASPRINTF 1
@@ -37,3 +40,5 @@ static inline char *g_strconcat(const char *str, ...) {
 	va_end (ap);
 	return out;
 }
+
+#endif /* _GLIB_STRING_H_ */

@@ -1,5 +1,8 @@
 /* TODO */
 
+#ifndef _GLIB_LIST_H_
+#define _GLIB_LIST_H_
+
 typedef struct _GList GList;
 struct _GList {
 	gpointer data;
@@ -61,3 +64,5 @@ static inline void g_list_foreach (GList *list, GFunc func, gpointer user_data) 
 #define g_slist_prepend g_list_prepend
 #define g_slist_foreach g_list_foreach
 #define g_slist_free g_list_free
+
+#endif /* _GLIB_LIST_H_ */
