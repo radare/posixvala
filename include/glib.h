@@ -16,8 +16,8 @@
 #endif /* __cplusplus */
 
 #define GTypeInterface void*
-#define g_quark_from_static_string(x) 1
-#define GQuark int
+#define GQuark unsigned int
+#define g_quark_from_static_string(x) ((GQuark)(x))
 #define gchar char
 #define gpointer void*
 #define gboolean int
