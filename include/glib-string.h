@@ -3,19 +3,22 @@
 
 #include <stdarg.h>
 
-#define HAVE_ASPRINTF 1
+/* For vsnprintf(3) */
+#ifndef _POSIX_C_SOURCE
+#define _POSIX_C_SOURCE 200112L
+#endif /* _POSIX_C_SOURCE */
 
 static inline char *g_strdup_printf(const char *fmt, ...) {
+	unsigned int length;
 	char *buf = NULL;
 	va_list ap;
 	va_start (ap, fmt);
-#if HAVE_ASPRINTF
-	vasprintf (&buf, fmt, ap);
-#else
-	buf = malloc (1024 + strlen (fmt)*2);
-	vsprintf (buf, fmt, ap);
-	buf = realloc (buf, strlen (buf)+1);
-#endif
+	/* Get the length of the result */
+	length = (unsigned int)vsnprintf(buf, 0, fmt, ap);
+	/* Must include space for the NULL-terminating byte. */
+	buf = calloc(length + 1, sizeof(char));
+	/* Actually create string, copies NULL byte too */
+	vsnprintf(buf, length + 1, fmt, ap);
 	va_end (ap);
 	return buf;
 }
