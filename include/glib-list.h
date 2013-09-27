@@ -12,7 +12,7 @@ struct _GList {
 
 // XXX memory leak
 #define g_list_free free
-#define _g_list_alloc() calloc(sizeof(GList), 1)
+#define _g_list_alloc() calloc(1, sizeof(GList))
 
 static inline GList* g_list_last (GList *list) {
 	if (list)

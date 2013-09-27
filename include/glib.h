@@ -24,8 +24,8 @@
 #define gint int
 #define gdouble double
 #define gsize size_t
-#define g_new0(x,y) (x*)calloc (sizeof(x),y);
-#define g_slice_new0(x) (x*)calloc (sizeof(x),1);
+#define g_new0(x,y) (x*)calloc (y, sizeof(x));
+#define g_slice_new0(x) (x*)calloc (1, sizeof(x));
 #define g_return_if_fail(x) if(!(x)) return;
 #define g_return_val_if_fail(x,y) if (!(x)) return y;
 #define g_slice_free(x,y) free(y)
