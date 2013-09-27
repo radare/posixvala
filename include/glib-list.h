@@ -10,9 +10,17 @@ struct _GList {
 	GList *prev;
 };
 
-// XXX memory leak
-#define g_list_free free
 #define _g_list_alloc() calloc(1, sizeof(GList))
+
+static inline void g_list_free(GList *list) {
+	GList *current, *tmp;
+	current = list;
+	while (current) {
+		tmp = current->next;
+		free(current);
+		current = tmp;
+	}
+}
 
 static inline GList* g_list_last (GList *list) {
 	if (list)
