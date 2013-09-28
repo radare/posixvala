@@ -17,6 +17,23 @@ G_BEGIN_DECLS
 #include <string.h>
 #include <stdlib.h>
 
+#define G_LIKELY(expr) (expr)
+#define G_LOG_DOMAIN "ERROR"
+#define G_STRFUNC __func__
+#define g_assertion_message_expr(domain,file,line,func,expr)		\
+do {									\
+	if (!expr) {							\
+		fprintf(stderr, "**\n%s:%s:%d:%s: %s\n",		\
+			domain, file, line, func,			\
+			"code should not be reached");			\
+	} else {							\
+		fprintf(stderr, "**\n%s:%s:%d:%s: "			\
+				"assertion failed: (%s)\n",		\
+				domain, file, line, func, expr);	\
+	}								\
+	abort();							\
+} while (0)
+
 #define GTypeInterface void*
 #define GQuark unsigned int
 #define g_quark_from_static_string(x) ((GQuark)(x))
