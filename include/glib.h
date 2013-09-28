@@ -36,7 +36,7 @@ do {									\
 
 #define GTypeInterface void*
 #define GQuark unsigned int
-#define g_quark_from_static_string(x) ((GQuark)(x))
+#define g_quark_from_static_string(x) ((GQuark)(size_t)(x))
 #define gchar char
 #define gpointer void*
 #define gboolean int

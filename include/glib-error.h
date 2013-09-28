@@ -4,7 +4,7 @@
 #define _GLIB_ERROR_H_
 
 static inline const gchar *g_quark_to_string(GQuark q) {
-	return (const gchar *)q;
+	return (const gchar *)(size_t)q;
 }
 #define g_error_new(x,y,z) g_error_new_literal(x, y, z)
 #define g_error_free(x) free(x->message),free(x)
