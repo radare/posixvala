@@ -1,12 +1,23 @@
 #ifndef _GLIB_STRING_H_
 #define _GLIB_STRING_H_
 
-#include <stdarg.h>
-
 /* For vsnprintf(3) */
 #ifndef _POSIX_C_SOURCE
 #define _POSIX_C_SOURCE 200112L
 #endif /* _POSIX_C_SOURCE */
+
+#include <stdarg.h>
+
+static inline guint g_str_hash(const gpointer v) {
+	const char *str = v;
+	guint hash = 5381;
+	gchar c;
+
+	while ((c = *str++))
+		hash = ((hash << 5) + hash) + c;
+
+	return hash;
+}
 
 static inline char *g_strdup_printf(const char *fmt, ...) {
 	unsigned int length;

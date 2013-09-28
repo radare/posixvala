@@ -3,10 +3,6 @@
 #ifndef _GLIB_H_
 #define _GLIB_H_
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
 #ifdef __cplusplus
  #define G_BEGIN_DECLS	extern "C" {
  #define G_END_DECLS	}
@@ -15,6 +11,29 @@
  #define G_END_DECLS
 #endif /* __cplusplus */
 
+G_BEGIN_DECLS
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define G_LIKELY(expr) (expr)
+#define G_LOG_DOMAIN "ERROR"
+#define G_STRFUNC __func__
+#define g_assertion_message_expr(domain,file,line,func,expr)		\
+do {									\
+	if (!expr) {							\
+		fprintf(stderr, "**\n%s:%s:%d:%s: %s\n",		\
+			domain, file, line, func,			\
+			"code should not be reached");			\
+	} else {							\
+		fprintf(stderr, "**\n%s:%s:%d:%s: "			\
+				"assertion failed: (%s)\n",		\
+				domain, file, line, func, expr);	\
+	}								\
+	abort();							\
+} while (0)
+
 #define GTypeInterface void*
 #define GQuark unsigned int
 #define g_quark_from_static_string(x) ((GQuark)(x))
@@ -22,6 +41,7 @@
 #define gpointer void*
 #define gboolean int
 #define gint int
+#define guint unsigned int
 #define gdouble double
 #define gsize size_t
 #define g_new0(x,y) (x*)calloc (y, sizeof(x));
@@ -46,17 +66,20 @@ typedef struct {
 	const char *m;
 } GEnumValue;
 
+#define g_once_init_enter(x) ((*(x) == 0) ? TRUE : FALSE)
+#define g_once_init_leave(x,y) (*(x) = y)
+#define g_boxed_type_register_static(x, y, z) g_str_hash(x)
+
 static inline void g_type_init() {}
 static inline void g_boxed() {}
-#define g_once_init_enter(x) 0
-static inline GType g_boxed_type_register_static() {return 0;}
-static inline void g_once_init_leave() {}
-typedef void (*GBoxedCopyFunc)(void *s);
-typedef void (*GBoxedFreeFunc)(void *s);
+typedef gpointer (*GBoxedCopyFunc)(gpointer s);
+typedef void (*GBoxedFreeFunc)(gpointer s);
 typedef void (*GFunc)(gpointer data, gpointer user_data);
 
 #include "glib-string.h"
 #include "glib-list.h"
 #include "glib-error.h"
+
+G_END_DECLS
 
 #endif /* _GLIB_H_ */
