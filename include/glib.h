@@ -50,7 +50,7 @@ typedef struct {
 
 #define g_once_init_enter(x) ((*(x) == 0) ? TRUE : FALSE)
 #define g_once_init_leave(x,y) (*(x) = y)
-#define g_boxed_type_register_static(x, y, z) 0
+#define g_boxed_type_register_static(x, y, z) 1
 
 static inline void g_type_init() {}
 static inline void g_boxed() {}
