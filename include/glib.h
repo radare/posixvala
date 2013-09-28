@@ -24,6 +24,7 @@ G_BEGIN_DECLS
 #define gpointer void*
 #define gboolean int
 #define gint int
+#define guint unsigned int
 #define gdouble double
 #define gsize size_t
 #define g_new0(x,y) (x*)calloc (y, sizeof(x));
