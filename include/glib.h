@@ -75,6 +75,7 @@ static inline void g_boxed() {}
 typedef gpointer (*GBoxedCopyFunc)(gpointer s);
 typedef void (*GBoxedFreeFunc)(gpointer s);
 typedef void (*GFunc)(gpointer data, gpointer user_data);
+typedef void (*GDestroyNotify)(gpointer data);
 
 #include "glib-string.h"
 #include "glib-list.h"
