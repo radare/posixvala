@@ -2,7 +2,7 @@ NAME		:= posixvala
 
 PREFIX		:= /usr/local
 BINDIR		:= $(PREFIX)/bin
-INCLUDEDIR	:= $(PREFIX)/include/pvala
+INCLUDEDIR	:= $(PREFIX)/include
 
 PKGS		:= glib-2.0 gobject-2.0 libvala-0.22
 
