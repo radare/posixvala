@@ -42,6 +42,37 @@ public class Vala.PosixCCodeCompiler : Vala.CCodeCompiler {
 		}
 	}
 
+	public void transform(CodeContext context) {
+		/* ULTRA HACK: Use sed to make C code not use the glib names */
+		/* NOTE: See src/transform.vala for a list of replacements */
+		string sed = "sed -i";
+		foreach (string sed_cmd in sed_transform) {
+			sed += " -e '" + sed_cmd + "'";
+		}
+		/* we're only interested in non-pkg source files */
+		var source_files = context.get_source_files ();
+		foreach (SourceFile file in source_files) {
+			if (file.file_type == SourceFileType.SOURCE) {
+				sed += " " + Shell.quote (file.get_csource_filename ());
+			}
+		}
+		source_files = null;
+		if (context.verbose_mode) {
+			stdout.printf("%s\n", sed);
+		}
+		try {
+			int exit_status;
+			Process.spawn_command_line_sync(sed, null, null, out exit_status);
+			if (exit_status != 0) {
+				Report.error (null, "sed exited with status %d".printf (exit_status));
+				return;
+			}
+		} catch (SpawnError e) {
+			Report.error(null, e.message);
+			return;
+		}
+	}
+
 	/**
 	 * Compile generated C code to object code and optionally link object
 	 * files.
@@ -85,35 +116,6 @@ public class Vala.PosixCCodeCompiler : Vala.CCodeCompiler {
 			}
 		}
 
-		/* ULTRA HACK: Use sed to make C code not use the glib names */
-		/* NOTE: See src/transform.vala for a list of replacements */
-		string sed = "sed -i";
-		foreach (string sed_cmd in sed_transform) {
-			sed += " -e '" + sed_cmd + "'";
-		}
-		/* we're only interested in non-pkg source files */
-		var source_files = context.get_source_files ();
-		foreach (SourceFile file in source_files) {
-			if (file.file_type == SourceFileType.SOURCE) {
-				sed += " " + Shell.quote (file.get_csource_filename ());
-			}
-		}
-		source_files = null;
-		if (context.verbose_mode) {
-			stdout.printf("%s\n", sed);
-		}
-		try {
-			int exit_status;
-			Process.spawn_command_line_sync(sed, null, null, out exit_status);
-			if (exit_status != 0) {
-				Report.error (null, "sed exited with status %d".printf (exit_status));
-				return;
-			}
-		} catch (SpawnError e) {
-			Report.error(null, e.message);
-			return;
-		}
-
 		// TODO compile the C code files in parallel
 
 		if (cc_command == null) {
@@ -134,7 +136,7 @@ public class Vala.PosixCCodeCompiler : Vala.CCodeCompiler {
 		}
 
 		/* we're only interested in non-pkg source files */
-		source_files = context.get_source_files ();
+		var source_files = context.get_source_files ();
 		foreach (SourceFile file in source_files) {
 			if (file.file_type == SourceFileType.SOURCE) {
 				cmdline += " " + Shell.quote (file.get_csource_filename ());

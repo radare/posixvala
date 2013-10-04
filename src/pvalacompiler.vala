@@ -418,8 +418,10 @@ class Vala.Compiler {
 			context.write_dependencies (dependencies);
 		}
 
+		var ccompiler = new PosixCCodeCompiler ();
+		ccompiler.transform(context);
+
 		if (!ccode_only) {
-			var ccompiler = new PosixCCodeCompiler ();
 			if (cc_command == null && Environment.get_variable ("CC") != null) {
 				cc_command = Environment.get_variable ("CC");
 			}

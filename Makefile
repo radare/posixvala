@@ -50,7 +50,7 @@ $(PVALA_C_SRC): pvala.stamp
 
 tests: $(PVALA_RUNNER)
 	@for t in $(notdir $(TESTS)); do 				\
-		./$(PVALA) tests/$$t -o tests/$${t%.*};			\
+		./$(PVALA) --save-temps tests/$$t -o tests/$${t%.*};	\
 		tests/$${t%.*};						\
 	done
 

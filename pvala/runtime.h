@@ -60,8 +60,8 @@ typedef struct _EnumValue {
 #define once_init_leave(x,y) (*(x) = y)
 #define boxed_type_register_static(x, y, z) (int)(x)
 
-#define type_init
-#define boxed
+#define type_init()
+#define boxed()
 
 typedef void	(*Func)(void *, void *);
 typedef void *	(*BoxedCopyFunc)(void *);
