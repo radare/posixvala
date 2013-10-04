@@ -21,7 +21,7 @@ TESTS		+= $(wildcard tests/*.vala) $(wildcard tests/*.gs)
 PKGC		+= $(shell pkg-config --cflags $(PKGS))
 PKGL		+= $(shell pkg-config --libs $(PKGS))
 
-CFLAGS		+= $(PKGC) -w -O2 -pipe -fPIC -I.
+CFLAGS		+= $(PKGC) -w -O2 -pipe -fPIC
 LDFLAGS		+= $(PKGL)
 
 VPKG		+= $(patsubst %,--pkg=%,$(PKGS))
