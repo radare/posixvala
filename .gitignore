@@ -5,3 +5,4 @@ posixvala
 posixvalac
 tests/main
 tests/test
+!include/posixvala

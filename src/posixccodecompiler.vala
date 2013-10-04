@@ -147,8 +147,6 @@ public class Vala.PosixCCodeCompiler : Vala.CCodeCompiler {
 			cmdline += " " + Shell.quote (file);
 		}
 
-		cmdline += " " + "-I.";
-
 		// add libraries after source files to fix linking
 		// with --as-needed and on Windows
 		cmdline += " " + pkgflags.strip ();

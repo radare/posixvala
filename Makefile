@@ -50,7 +50,8 @@ $(PVALA_C_SRC): pvala.stamp
 
 tests: $(PVALA_RUNNER)
 	@for t in $(notdir $(TESTS)); do 				\
-		./$(PVALA) --save-temps tests/$$t -o tests/$${t%.*};	\
+		./$(PVALA) --save-temps --Xcc='-Iinclude' tests/$$t	\
+			-o tests/$${t%.*};				\
 		tests/$${t%.*};						\
 	done
 
@@ -58,13 +59,13 @@ install: all
 	@mkdir -pv $(DESTDIR)$(BINDIR) $(DESTDIR)$(INCLUDEDIR)
 	@install -v -m0755 $(PVALA) $(DESTDIR)$(BINDIR)
 	@cd $(DESTDIR)$(BINDIR) && ln -svf $(PVALA) $(PVALA_RUNNER)
-	@cp -av pvala $(DESTDIR)$(INCLUDEDIR)
+	@cp -av include/posixvala $(DESTDIR)$(INCLUDEDIR)
 
 
 uninstall:
 	@rm -fv $(DESTDIR)$(BINDIR)/$(PVALA)
 	@rm -fv $(DESTDIR)$(BINDIR)/$(PVALA_RUNNER)
-	@rm -rvf $(DESTDIR)$(INCLUDEDIR)/pvala
+	@rm -rvf $(DESTDIR)$(INCLUDEDIR)/posixvala
 
 clean:
 	@rm -fv $(PVALA) $(PVALA_RUNNER) $(PVALA_C_SRC) $(PVALA_OBJ)	\

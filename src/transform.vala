@@ -1,6 +1,6 @@
 public static const string[] sed_transform = {
 	/* Provide single include file */
-	"s/#include <glib\\.h>/#include <pvala\\/runtime.h>/g",
+	"s/#include <glib\\.h>/#include <posixvala\\/runtime.h>/g",
 	"s/#include <g\\(.*\\)\\.h>//g",
 
 	/* Basic types */
