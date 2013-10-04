@@ -9,8 +9,9 @@ C code compile without any other dependency than libc.
 
 Not all features of Vala are currently supported by posixvala
 and it is not suposed to perform as well as GLib (lacks slices
-and other libraries) and posixvala programs cannot link against
-glib libraries.
+and other libraries).
+
+posixvala programs *can* be linked against glib libraries.
 
 Current supported features are:
 
