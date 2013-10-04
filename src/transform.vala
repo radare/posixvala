@@ -43,7 +43,7 @@ public static const string[] sed_transform = {
 	"s/g_slice/slice/g",
 	"s/strcmp0/strcmp/g",
 	"s/g_str/str/g",
-	"s/g_free/free/g",
+	"s/\\([^A-z]\\)g_free/\\1free/g",
 	"s/g_new0/new0/g",
 	"s/g_boxed/boxed/g",
 	"s/g_quark/quark/g",
