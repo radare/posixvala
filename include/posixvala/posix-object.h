@@ -1,0 +1,6 @@
+#ifndef _POSIXVALA_RUNTIME_OBJECT_H_
+#define _POSIXVALA_RUNTIME_OBJECT_H_
+
+/* empty */
+
+#endif /* _POSIXVALA_RUNTIME_OBJECT_H_ */

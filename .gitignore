@@ -1,0 +1,8 @@
+*.c
+*.o
+*.stamp
+posixvala
+posixvalac
+tests/main
+tests/test
+!include/posixvala

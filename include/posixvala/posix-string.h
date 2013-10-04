@@ -1,5 +1,5 @@
-#ifndef _GLIB_STRING_H_
-#define _GLIB_STRING_H_
+#ifndef _POSIXVALA_RUNTIME_STRING_H_
+#define _POSIXVALA_RUNTIME_STRING_H_
 
 /* For vsnprintf(3) */
 #ifndef _POSIX_C_SOURCE
@@ -8,10 +8,10 @@
 
 #include <stdarg.h>
 
-static inline guint g_str_hash(const gpointer v) {
+static inline unsigned int str_hash(const void *v) {
 	const char *str = v;
-	guint hash = 5381;
-	gchar c;
+	unsigned int hash = 5381;
+	char c;
 
 	while ((c = *str++))
 		hash = ((hash << 5) + hash) + c;
@@ -19,22 +19,19 @@ static inline guint g_str_hash(const gpointer v) {
 	return hash;
 }
 
-static inline char *g_strdup_printf(const char *fmt, ...) {
+static inline char *strdup_printf(const char *fmt, ...) {
 	unsigned int length;
 	char *buf = NULL;
 	va_list ap;
 	va_start (ap, fmt);
-	/* Get the length of the result */
 	length = (unsigned int)vsnprintf(buf, 0, fmt, ap);
-	/* Must include space for the NULL-terminating byte. */
 	buf = calloc(length + 1, sizeof(char));
-	/* Actually create string, copies NULL byte too */
 	vsnprintf(buf, length + 1, fmt, ap);
 	va_end (ap);
 	return buf;
 }
 
-static inline char *g_strconcat(const char *str, ...) {
+static inline char *strconcat(const char *str, ...) {
 	int plen, olen;
 	const char *p;
 	char *out;
@@ -55,4 +52,4 @@ static inline char *g_strconcat(const char *str, ...) {
 	return out;
 }
 
-#endif /* _GLIB_STRING_H_ */
+#endif /* _POSIXVALA_RUNTIME_STRING_H_ */
