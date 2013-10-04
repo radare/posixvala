@@ -41,6 +41,7 @@ public static const string[] sed_transform = {
 	"s/G_END_DECLS/#ifdef __cplusplus\\n}\\n#endif/g",
 	"s/g_once/once/g",
 	"s/g_slice/slice/g",
+	"s/strcmp0/strcmp/g",
 	"s/g_str/str/g",
 	"s/g_free/free/g",
 	"s/g_new0/new0/g",
