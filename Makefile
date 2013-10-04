@@ -61,6 +61,12 @@ install: all
 	@cd $(DESTDIR)$(BINDIR) && ln -svf $(PVALA) $(PVALA_RUNNER)
 	@cp -av include/posixvala $(DESTDIR)$(INCLUDEDIR)
 
+symstall: all
+	@mkdir -pv $(DESTDIR)$(BINDIR) $(DESTDIR)$(INCLUDEDIR)
+	@ln -svf `pwd`/$(PVALA) $(DESTDIR)$(BINDIR)/$(PVALA)
+	@ln -svf `pwd`/$(PVALA) $(DESTDIR)$(BINDIR)/$(PVALA_RUNNER)
+	@rm -rvf $(DESTDIR)$(INCLUDEDIR)/posixvala
+	@ln -svf `pwd`/include/posixvala $(DESTDIR)$(INCLUDEDIR)/posixvala
 
 uninstall:
 	@rm -fv $(DESTDIR)$(BINDIR)/$(PVALA)
@@ -74,5 +80,9 @@ clean:
 		rm -fv tests/$${t%.*};					\
 	done
 
-.PHONY: all tests install uninstall clean
+dist: clean
+	@cd .. ; tar --exclude-vcs -czvf posixvala.tar.gz posixvala
+
+
+.PHONY: all tests install symstall uninstall clean dist
 .PRECIOUS: $(PVALA_SRC) $(PVALA_C_SRC)
