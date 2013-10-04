@@ -56,6 +56,9 @@ public class Vala.PosixCCodeCompiler : Vala.CCodeCompiler {
 				sed += " " + Shell.quote (file.get_csource_filename ());
 			}
 		}
+		if (context.header_filename != null) {
+			sed += " " + Shell.quote (context.header_filename);
+		}
 		source_files = null;
 		if (context.verbose_mode) {
 			stdout.printf("%s\n", sed);
