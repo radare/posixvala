@@ -77,6 +77,8 @@ typedef void (*GBoxedFreeFunc)(gpointer s);
 typedef void (*GFunc)(gpointer data, gpointer user_data);
 typedef void (*GDestroyNotify)(gpointer data);
 
+#define GLIB_CHECK_VERSION(m,n,o) TRUE
+
 #include "glib-string.h"
 #include "glib-list.h"
 #include "glib-error.h"
