@@ -25,6 +25,9 @@ install:
 	rm -rf ${DP}/include/posixvala
 	mkdir -p ${DP}/include/posixvala
 	cp -rf include/* ${DP}/include/posixvala
+	cp -f posixvala.pc ${DP}/lib/pkgconfig
+	sed -i -e "s,^prefix=/usr/local,prefix=${PREFIX}," \
+		 ${DP}/lib/pkgconfig/posixvala.pc
 
 uninstall deinstall:
 	rm -rf ${DP}/bin/posixvala
