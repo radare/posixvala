@@ -370,8 +370,13 @@ class Vala.Compiler {
 						if (directory != null) {
 							gir_directory = context.directory;
 						}
-
+#if VALA_0_24
+						string gir_filename = "%s.gir".printf (library);
+						gir_writer.write_file (context, gir_directory, gir_filename, gir_namespace, gir_version, library);
+#else
+						string gir_filename = "%s.gir".printf (library);
 						gir_writer.write_file (context, gir_directory, gir_namespace, gir_version, library);
+#endif
 					}
 				}
 

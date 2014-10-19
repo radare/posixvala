@@ -13,6 +13,8 @@
 
 BEGIN_DECLS
 
+#define GLIB_CHECK_VERSION(m,n,o) TRUE
+
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
