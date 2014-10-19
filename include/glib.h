@@ -42,6 +42,9 @@ do {									\
 #define gboolean int
 #define gint int
 #define guint unsigned int
+#define guint32 guint
+#define gunichar guint32
+#define glong long
 #define gdouble double
 #define gsize size_t
 #define g_new0(x,y) (x*)calloc (y, sizeof(x));
