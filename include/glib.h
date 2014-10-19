@@ -42,6 +42,9 @@ do {									\
 #define gboolean int
 #define gint int
 #define guint unsigned int
+#define guint32 guint
+#define gunichar guint32
+#define glong long
 #define gdouble double
 #define gsize size_t
 #define g_new0(x,y) (x*)calloc (y, sizeof(x));
@@ -76,6 +79,8 @@ typedef gpointer (*GBoxedCopyFunc)(gpointer s);
 typedef void (*GBoxedFreeFunc)(gpointer s);
 typedef void (*GFunc)(gpointer data, gpointer user_data);
 typedef void (*GDestroyNotify)(gpointer data);
+
+#define GLIB_CHECK_VERSION(m,n,o) TRUE
 
 #include "glib-string.h"
 #include "glib-list.h"
