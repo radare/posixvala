@@ -1,1 +1,2 @@
 * use 'sed -i' in .c file to reduce code
+* auto-compact all non-compact classes

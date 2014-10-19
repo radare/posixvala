@@ -4,7 +4,7 @@
 #
 # author: pancake <pancake@nopcode.org>
 #
-VERSION=0.1
+VERSION=0.2
 MWD=`dirname ${0}`
 POSIXVALADIR=${MWD}/include
 MAIN=a.out
@@ -13,10 +13,13 @@ HAS_LC=0
 SAVETEMPS=0
 [ -z "${VALAC}" ] && VALAC=valac
 [ -z "${CC}" ] && CC=gcc
+if [ ! -d "${POSIXVALADIR}" ]; then
+	POSIXVALADIR=`pkg-config --variable=includedir posixvala`/posixvala
+fi
 CFILES=""
 VALA_ARGS="" #--save-temps"
 help() {
-	echo "Usage: posixvala [-cChkv] [valaflags] [(vala|genie)files ...]"
+	echo "Usage: posixvalac [-cChkv] [valaflags] [(vala|genie)files ...]"
 	exit 0
 }
 for a in $@ ; do

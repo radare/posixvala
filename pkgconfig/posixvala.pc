@@ -1,7 +1,7 @@
 prefix=/usr/local
-includedir=${prefix}/include
+includedir=${prefix}/include/
  
 Name: posixvala
 Description: Posix profile for Vala
-Version: 0.1
+Version: 0.2
 Cflags: -I${includedir}/posixvala
