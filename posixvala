@@ -5,7 +5,8 @@
 # author: pancake <pancake@nopcode.org>
 #
 VERSION=0.1
-POSIXVALADIR=include
+MWD=`dirname ${0}`
+POSIXVALADIR=${MWD}/include
 MAIN=a.out
 HAS_C=0
 HAS_LC=0

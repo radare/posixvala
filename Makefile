@@ -2,13 +2,8 @@ DESTDIR?=
 PREFIX?=/usr
 DP=${DESTDIR}/${PREFIX}
 
-all: main test
-
-main: main.vala
-	./posixvala --save-temps main.vala
-
-test: test.gs
-	./posixvala --save-temps test.gs
+all:
+	@cd tests ; $(MAKE)
 
 dist: clean
 	cd .. ; tar czvf posixvala.tar.gz posixvala
