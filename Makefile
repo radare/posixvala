@@ -17,13 +17,14 @@ install:
 	rm -rf ${DP}/include/posixvala
 	mkdir -p ${DP}/include/posixvala
 	cp -rf include/posixvala/* ${DP}/include/posixvala
-	cp -f pkgconfig/posixvala.pc ${DP}/lib/pkgconfig
-	sed -i -e "s,^prefix=/usr/local,prefix=${PREFIX}," \
-		 ${DP}/lib/pkgconfig/posixvala.pc
+	sed -e "s,^prefix=/usr/local,prefix=${PREFIX}," \
+		< pkgconfig/posixvala.pc \
+		 > ${DP}/lib/pkgconfig/posixvala.pc
 
 uninstall deinstall:
-	rm -rf ${DP}/bin/posixvalac
+	rm -f ${DP}/bin/posixvalac
 	rm -rf ${DP}/include/posixvala
+	rm -f ${DP}/lib/pkgconfig/posixvala.pc
 
 symstall:
 	mkdir -p ${DP}/bin ${DP}/include
@@ -31,4 +32,4 @@ symstall:
 	rm -rf ${DP}/include/posixvala
 	ln -fs `pwd`/include/posixvala ${DP}/include/posixvala
 	cp -f pkgconfig/posixvala.pc ${DP}/lib/pkgconfig
-	sed -i -e "s,/usr/local,/usr," ${DP}/lib/pkgconfig/posixvala.pc
+	sed -i -e "s,/usr/local,${PREFIX}," ${DP}/lib/pkgconfig/posixvala.pc
