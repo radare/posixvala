@@ -12,12 +12,23 @@ and it is not suposed to perform as well as GLib (lacks slices
 and other libraries) and posixvala programs cannot link against
 glib libraries.
 
-Current supported features are:
+Current supported features
+--------------------------
 
 * Vala and Genie
-* compact classes
-* string processing
+* Compact classes
+* String processing
 * List and SList
-* exceptions
-* delegates
-* structs
+* Exceptions
+* Delegates
+* Inheritance
+* Structs
+* Lambdas
+* Closures
+
+Unsupported features
+--------------------
+* Abstract Classes (Requires non-compact)
+* Async methods
+* Non-compact classes
+* Regular expressions

@@ -22,11 +22,19 @@ help() {
 	echo "Usage: posixvalac [-cChkv] [valaflags] [(vala|genie)files ...]"
 	exit 0
 }
+HASPKG=0
 for a in $@ ; do
+	if [ "${HASPKG}" = 1 ]; then
+		shift
+		CFLAGS="$CFLAGS `pkg-config --cflags $a`"
+		LDFLAGS="$CFLAGS `pkg-config --libs $a`"
+		HASPKG=0
+	fi
 	case "$a" in
 	-h|--help) help ; ;;
 	-v|--version) echo $VERSION ; exit 0 ; ;;
 	-k|--save-temps) SAVETEMPS=1 ; ;;
+	--pkg) HASPKG=1 ; ;;
 	esac
 	[ "$a" = "-c" ] && HAS_LC=1 && continue
 	VALA_ARGS="${VALA_ARGS} $a"
