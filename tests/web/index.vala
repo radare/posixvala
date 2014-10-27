@@ -1,15 +1,19 @@
-using Emscripten;
+/* Hello World HTML5/PosixVala/Emscripten app */
+
 using Web;
 
 static void createHomepage() {
-	var body = Web.getElementById ("vala");
-	Web.innerHTML (body, "It works!");
+	//var body = Web.getElementById ("vala");
+	Web.innerHTML ("vala", "<h1>It works!</h1>");
 }
 
 void main() {
-	Web.alert ("init");
+//	Web.alert ("init");
 	Web.onDOMContentLoaded(() => {
-		Web.alert ("loaded");
+//		Web.alert ("loaded 1");
 	});
-	createHomepage();
+	Web.addEventListener("DOMContentLoaded", () => {
+//		Web.alert ("loaded 2");
+		createHomepage();
+	});
 }
