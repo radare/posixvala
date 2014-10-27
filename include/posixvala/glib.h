@@ -11,6 +11,8 @@
  #define G_END_DECLS
 #endif /* __cplusplus */
 
+#define emscripten_eval(x) eval(x)
+
 G_BEGIN_DECLS
 
 #include <stdio.h>

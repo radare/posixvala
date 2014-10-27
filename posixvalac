@@ -10,6 +10,7 @@ POSIXVALADIR=${MWD}/include/posixvala
 MAIN=a.out
 HAS_C=0
 HAS_LC=0
+DO_EMCC=0
 SAVETEMPS=0
 [ -z "${VALAC}" ] && VALAC=valac
 [ -z "${CC}" ] && CC=gcc
@@ -24,18 +25,26 @@ help() {
 }
 HASPKG=0
 for a in $@ ; do
-	if [ "${HASPKG}" = 1 ]; then
-		shift
-		CFLAGS="$CFLAGS `pkg-config --cflags $a`"
-		LDFLAGS="$CFLAGS `pkg-config --libs $a`"
-		HASPKG=0
+	if [ 0 = "${DO_EMCC}" ]; then
+		if [ "${HASPKG}" = 1 ]; then
+			shift
+			CFLAGS="$CFLAGS `pkg-config --cflags $a`"
+			LDFLAGS="$CFLAGS `pkg-config --libs $a`"
+			HASPKG=0
+		fi
 	fi
 	case "$a" in
 	-h|--help) help ; ;;
 	-v|--version) echo $VERSION ; exit 0 ; ;;
 	-k|--save-temps) SAVETEMPS=1 ; ;;
+	--emcc) DO_EMCC=1 ; shift ; continue ; ;;
 	--pkg) HASPKG=1 ; ;;
 	esac
+	if [ 1 = "${DO_EMCC}" ]; then
+		#VALA_ARGS="--pkg emscripten"
+		CC=emcc
+		export CC
+	fi
 	[ "$a" = "-c" ] && HAS_LC=1 && continue
 	VALA_ARGS="${VALA_ARGS} $a"
 	[ "$a" = "-C" ] && HAS_C=1
@@ -44,9 +53,12 @@ for a in $@ ; do
 	vala|gs)
 		FILE=`echo $a|sed -e s,.${EXT},.c,`
 		CFILES="${CFILES} ${FILE}"
-		[ -n "`grep -e main -e ^init $a`" ] && \
+		if [ -n "`grep -e main -e ^init $a`" ]; then
 			MAIN=`echo $a | sed -e s,.${EXT},,`
-		;;
+			if [ "${DO_EMCC}" = 1 ]; then
+				MAIN="${MAIN}.js"
+			fi
+		fi
 	esac
 done
 if [ -n "${CFILES}" -a "${MAIN}" = a.out ]; then
