@@ -11,7 +11,7 @@ namespace Emscripten {
 	public void EM_ASM(string str);
 
 	[CCode (cname="EM_ASM_INT")]
-	public int INT(string str, int n);
+	public int INT(string str, int n, ...);
 
 	[CCode (cname="EM_ASM_STRING")]
 	public void STRING(string str, string n);

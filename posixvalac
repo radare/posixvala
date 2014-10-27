@@ -19,6 +19,7 @@ if [ ! -d "${POSIXVALADIR}" ]; then
 fi
 CFILES=""
 VALA_ARGS="" #--save-temps"
+CFLAGS="${CFLAGS} -Wno-warn-absolute-paths"
 help() {
 	echo "Usage: posixvalac [-cChkv] [valaflags] [(vala|genie)files ...]"
 	exit 0
