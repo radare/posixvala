@@ -10,11 +10,12 @@
 
 /** @return a pointer to the next unicode point in a _valid_ unicode string or null if s points to the last character. */
 static inline const gchar* g_utf8_next_char (const gchar *s) {
-	if (s[0] == '\0') return NULL;
-	if (s[0] < 0x80) return s+1;
-	if (s[0] < 0xE0) return s + 2;
-	if (s[0] < 0xF0) return s + 3;
-	if (s[0] < 0xF5) return s + 4;
+	unsigned char ch = *s;
+	if (ch == '\0') return NULL;
+	if (ch < 0x80) return s+1;
+	if (ch < 0xE0) return s + 2;
+	if (ch < 0xF0) return s + 3;
+	if (ch < 0xF5) return s + 4;
 	return NULL;
 }
 

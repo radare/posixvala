@@ -18,6 +18,7 @@ G_BEGIN_DECLS
 #include <stdlib.h>
 
 #define G_LIKELY(expr) (expr)
+#define G_UNLIKELY(expr) (expr)
 #define G_LOG_DOMAIN "ERROR"
 #define G_STRFUNC __func__
 #define g_assertion_message_expr(domain,file,line,func,expr)		\

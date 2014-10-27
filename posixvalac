@@ -6,7 +6,7 @@
 #
 VERSION=0.2
 MWD=`dirname ${0}`
-POSIXVALADIR=${MWD}/include
+POSIXVALADIR=${MWD}/include/posixvala
 MAIN=a.out
 HAS_C=0
 HAS_LC=0
@@ -19,7 +19,7 @@ fi
 CFILES=""
 VALA_ARGS="" #--save-temps"
 help() {
-	echo "Usage: posixvalac [-cChkv] [valaflags] [(vala|genie)files ...]"
+	echo "Usage: posixvalac [-cChkv] [valaflags] [(vala|genie)files ...]"
 	exit 0
 }
 HASPKG=0
