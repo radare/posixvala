@@ -76,5 +76,12 @@ if [ "${HAS_C}" = 0 ]; then
 	fi
 	R=$?; [ ! $R = 0 ] && exit $R
 	[ "${SAVETEMPS}" = 0 ] && rm -f ${CFILES}
+	if [ 1 = "${DO_EMCC}" ]; then
+		# Fix EM_ASM macro
+		mv ${MAIN} ${MAIN}.tmp
+		sed -e 's_gify(code);_gify(code).replace(/" "/g,"").replace(/\\\\n/g,"").replace(/\\\\t/g,"").replace(/\\\\"/g,"'"'"'");_g' < ${MAIN}.tmp > ${MAIN}
+		rm -f ${MAIN}.tmp
+	
+	fi
 fi
 exit 0
