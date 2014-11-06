@@ -27,4 +27,6 @@ void main() {
 //		Web.alert ("loaded 2");
 		createHomepage();
 	});
+
+	MozWeb.vibrate (1000);
 }

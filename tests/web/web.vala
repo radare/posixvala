@@ -71,7 +71,7 @@ namespace Web {
 		}
 	}
 
-	public void addEventListener(string ev, Callback cb) {
+	public static void addEventListener(string ev, Callback cb) {
 		Emscripten.INT("""
 			document.addEventListener(Pointer_stringify($0), 
 				Runtime.getFuncWrapper($1,'vi') );
@@ -87,5 +87,20 @@ namespace Web {
 #else
 		addEventListener("DOMContentLoaded", cb);
 #endif
+	}
+
+	public static void vibrate(int msecs) {
+		Emscripten.INT("""
+			navigator.vibrate = navigator.vibrate
+				|| navigator.webkitVibrate
+				|| navigator.mozVibrate
+				|| navigator.msVibrate;
+			navigator.vibrate($0);
+		""", msecs);
+	}
+
+	// TODO: Implement
+	public static void vibratePattern(int[] msecs) {
+		// TODO
 	}
 }
