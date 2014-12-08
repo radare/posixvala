@@ -6,6 +6,9 @@
 #
 VERSION=0.2
 MWD=`dirname ${0}`
+if [ ! -d "${MWD}/include" ]; then
+	MWD="${MWD}/../"
+fi
 POSIXVALADIR=${MWD}/include/posixvala
 MAIN=a.out
 HAS_C=0
