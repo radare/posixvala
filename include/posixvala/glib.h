@@ -44,6 +44,8 @@ do {									\
 #define gpointer void*
 #define gboolean int
 #define gint int
+#define gint16 short
+#define guint16 unsigned short
 #define guint unsigned int
 #define guint32 guint
 #define gunichar guint32
