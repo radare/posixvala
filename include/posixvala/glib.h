@@ -40,18 +40,31 @@ do {									\
 #define GTypeInterface void*
 #define GQuark unsigned int
 #define g_quark_from_static_string(x) ((GQuark)(size_t)(x))
+#define gfloat float
+#define gdouble double
 #define gchar char
+#define uchar unsigned char
+#define ushort unsigned short
+#define gushort unsigned short
+#define ulong unsigned long
+#define gulong unsigned long
 #define gpointer void*
 #define gboolean int
+#define gint8 char
+#define guint8 unsigned char
 #define gint int
 #define gint16 short
 #define guint16 unsigned short
 #define guint unsigned int
-#define guint32 guint
+#define gint32 int
+#define guint32 unsigned int
+#define gint64 long long
+#define guint64 unsigned long long
 #define gunichar guint32
 #define glong long
 #define gdouble double
 #define gsize size_t
+#define gssize ssize_t
 #define g_new0(x,y) (x*)calloc (y, sizeof(x));
 #define g_slice_new0(x) (x*)calloc (1, sizeof(x));
 #define g_return_if_fail(x) if(!(x)) return;
