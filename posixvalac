@@ -32,8 +32,13 @@ for a in $@ ; do
 	if [ 0 = "${DO_EMCC}" ]; then
 		if [ "${HASPKG}" = 1 ]; then
 			shift
-			CFLAGS="$CFLAGS `pkg-config --cflags $a`"
-			LDFLAGS="$CFLAGS `pkg-config --libs $a`"
+			pkg-config --exists "$a"
+			if [ $? = 0 ]; then
+				CFLAGS="$CFLAGS `pkg-config --cflags $a`"
+				LDFLAGS="$CFLAGS `pkg-config --libs $a`"
+			else
+				echo "Warning: Cannot find pkg-config file for $a"
+			fi
 			HASPKG=0
 		fi
 	fi
