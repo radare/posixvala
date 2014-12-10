@@ -27,6 +27,9 @@ help() {
 	echo "Usage: posixvalac [-cChkv] [valaflags] [(vala|genie)files ...]"
 	exit 0
 }
+warn() {
+	printf "\033[33mWarning: $@\033[0m\n"
+}
 HASPKG=0
 for a in $@ ; do
 	if [ 0 = "${DO_EMCC}" ]; then
@@ -37,7 +40,7 @@ for a in $@ ; do
 				CFLAGS="$CFLAGS `pkg-config --cflags $a`"
 				LDFLAGS="$CFLAGS `pkg-config --libs $a`"
 			else
-				echo "Warning: Cannot find pkg-config file for $a"
+				warn "Cannot find pkg-config file for $a"
 			fi
 			HASPKG=0
 		fi
@@ -71,25 +74,29 @@ for a in $@ ; do
 	esac
 done
 if [ -n "${CFILES}" -a "${MAIN}" = a.out ]; then
-	echo "warning: unable to find main, output is a.out"
+	warn "unable to find main, output is a.out"
 fi
 ${VALAC} -C ${VALA_ARGS}
-R=$?; [ ! $R = 0 ] && exit $R
-if [ "${HAS_C}" = 0 ]; then
-	CFLAGS="${CFLAGS} -Wall -I${POSIXVALADIR} -O3"
-	if [ "${HAS_LC}" = 0 ]; then
-		${CC} -o ${MAIN} ${CFLAGS} ${CFILES}
-	else
-		${CC} -c ${CFLAGS} ${CFILES}
-	fi
-	R=$?; [ ! $R = 0 ] && exit $R
-	[ "${SAVETEMPS}" = 0 ] && rm -f ${CFILES}
-	if [ 1 = "${DO_EMCC}" ]; then
-		# Fix EM_ASM macro
-		mv ${MAIN} ${MAIN}.tmp
-		sed -e 's_gify(code);_gify(code).replace(/" "/g,"").replace(/\\\\n/g,"").replace(/\\\\t/g,"").replace(/\\\\"/g,"'"'"'");_g' < ${MAIN}.tmp > ${MAIN}
-		rm -f ${MAIN}.tmp
-	
+R=$?; 
+if [ $R = 0 ]; then
+	if [ "${HAS_C}" = 0 ]; then
+		CFLAGS="${CFLAGS} -Wall -I${POSIXVALADIR} -O3"
+		if [ "${HAS_LC}" = 0 ]; then
+			${CC} -o ${MAIN} ${CFLAGS} ${CFILES}
+		else
+			${CC} -c ${CFLAGS} ${CFILES}
+		fi
+		R=$?;
+		if [ $R = 0 ]; then
+			[ "${SAVETEMPS}" = 0 ] && rm -f ${CFILES}
+			if [ 1 = "${DO_EMCC}" ]; then
+				# Fix EM_ASM macro
+				mv ${MAIN} ${MAIN}.tmp
+				sed -e 's_gify(code);_gify(code).replace(/" "/g,"").replace(/\\\\n/g,"").replace(/\\\\t/g,"").replace(/\\\\"/g,"'"'"'");_g' < ${MAIN}.tmp > ${MAIN}
+				rm -f ${MAIN}.tmp
+			
+			fi
+		fi
 	fi
 fi
-exit 0
+exit $R
