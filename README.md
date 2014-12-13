@@ -15,7 +15,8 @@ glib libraries.
 Current supported features
 --------------------------
 
-* Vala and Genie
+* Vala and Genie languages
+* Import VAPIs
 * Compact classes
 * String processing
 * List and SList
@@ -29,6 +30,7 @@ Current supported features
 Unsupported features
 --------------------
 * Abstract Classes (Requires non-compact)
+* Interfaces (requires gobject machinery)
 * Async methods
 * Non-compact classes
 * Regular expressions
