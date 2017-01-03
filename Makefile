@@ -19,6 +19,7 @@ install:
 	rm -rf ${DP}/include/posixvala
 	mkdir -p ${DP}/include/posixvala
 	mkdir -p ${DP}/${VAPIDIR}
+	mkdir -p ${DP}/${PKGCONFIGDIR}
 	cp -f vapi/emscripten.vapi ${DP}/${VAPIDIR}/emscripten.vapi
 	cp -rf include/posixvala/* ${DP}/include/posixvala
 	sed "s,^prefix=/usr/local,prefix=${PREFIX}," \
