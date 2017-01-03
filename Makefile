@@ -18,6 +18,7 @@ install:
 	chmod +x ${DP}/bin/posixvalac
 	rm -rf ${DP}/include/posixvala
 	mkdir -p ${DP}/include/posixvala
+	mkdir -p ${DP}/${VAPIDIR}
 	cp -f vapi/emscripten.vapi ${DP}/${VAPIDIR}/emscripten.vapi
 	cp -rf include/posixvala/* ${DP}/include/posixvala
 	sed "s,^prefix=/usr/local,prefix=${PREFIX}," \
