@@ -18,6 +18,7 @@ G_BEGIN_DECLS
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 #define G_LIKELY(expr) (expr)
 #define G_UNLIKELY(expr) (expr)
@@ -38,7 +39,7 @@ do {									\
 } while (0)
 
 #define GTypeInterface void*
-#define GQuark unsigned int
+#define GQuark uintptr_t
 #define g_quark_from_static_string(x) ((GQuark)(size_t)(x))
 #define gfloat float
 #define gdouble double
