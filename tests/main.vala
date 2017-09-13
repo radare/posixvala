@@ -62,7 +62,7 @@ void main() {
 	obj.inc();
 	obj.inc();
 	print ("Obj = %s\n", obj.to_string ());
-	
+
 	obj = null;
 
 	// experimental syntax
