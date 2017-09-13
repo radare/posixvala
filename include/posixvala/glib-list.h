@@ -22,6 +22,17 @@ static inline void g_list_free(GList *list) {
 	}
 }
 
+static inline void g_list_free_full (GList *list, GDestroyNotify free_func) {
+	GList *current, *tmp;
+	current = list;
+	while (current) {
+		tmp = current->next;
+		free_func (current->data);
+		free (current);
+		current = tmp;
+	}
+}
+
 static inline GList* g_list_last (GList *list) {
 	if (list)
 		while (list->next)
@@ -72,5 +83,6 @@ static inline void g_list_foreach (GList *list, GFunc func, gpointer user_data) 
 #define g_slist_prepend g_list_prepend
 #define g_slist_foreach g_list_foreach
 #define g_slist_free g_list_free
+#define g_slist_free_full g_list_free_full
 
 #endif /* _GLIB_LIST_H_ */
